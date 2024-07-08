@@ -1,65 +1,119 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous">
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Assistant</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.3/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        .chat-message {
-            display: block;
-            word-wrap: break-word;
-            margin-bottom: 2px;
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
         }
-        .spinner {
-            display: none;
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border-top-color: #3498db;
-            animation: spin 1s linear infinite;
+        .chat-message {
+            max-width: 70%;
+            word-wrap: break-word;
+            margin-bottom: 10px;
+            line-height: 24px;
+            position: relative;
+            padding: 10px 20px;
+            border-radius: 25px;
+        }
+        .chat-message:before {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            height: 20px;
+            width: 20px;
+        }
+        .chat-message.user {
+            color: #fff;
+            background: #4a5568;
+            align-self: flex-end;
+        }
+        .chat-message.user:before {
+            right: -7px;
+            border-bottom-left-radius: 16px 14px;
+            transform: translate(0, -2px);
+            background: #4a5568;
+        }
+        .chat-message.assistant {
+            background: #6b7280;
+            color: #fff;
+            align-self: flex-start;
+            max-width: 50%; /* Reduce the maximum width of assistant messages */
+        }
+        .chat-message.assistant:before {
+            left: -7px;
+            border-bottom-right-radius: 16px 14px;
+            transform: translate(0, -2px);
+            background: #6b7280;
+        }
+        #chatbox::-webkit-scrollbar {
+            width: 6px;
+        }
+        #chatbox::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+        #chatbox::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 3px;
+        }
+        #chatbox::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+        #chatInput {
+            transition: all 0.3s ease;
+        }
+        #chatInput:focus {
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+        }
+        #sendButton {
+            transition: all 0.3s ease;
+        }
+        #sendButton:hover {
+            background-color: #38a169;
+        }
+        #infoButton {
+            transition: all 0.3s ease;
+        }
+        #infoButton:hover {
+            background-color: #4a5568;
+        }
+        #infoTooltip {
+            transition: opacity 0.3s ease;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+        .chat-message img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
         }
-          #chatbox::-webkit-scrollbar {
-      width: 8px;
-    }
-    .chatbox::-webkit-scrollbar-track {
-      background-color: #F3F4F6;
-    }
-    .chatbox::-webkit-scrollbar-thumb {
-      background-color: #6B7280;
-      border-radius: 4px;
-    }
+        .image-container {
+            position: relative;
+            width: 100%;
+        }
     </style>
 </head>
-<body class="bg-gray-900">
-    <div class="container mx-auto px-4 h-full relative max-w-md">
-        <div class=" py-6 px-8 rounded max-w-md mx-auto h-full flex flex-col">
-            <div id="chatbox" class="flex flex-col h-full overflow-y-scroll pb-16 flex-grow mb-20 space-y-2">
-</div>
-            <div class="fixed bottom-0 left-0 w-full bg-gray-800 py-2 px-4 max-w-md mx-auto ml-auto mr-auto md:bottom-0 md:left-auto md:right-auto md:transform" style="z-index: 10;">
-                <form id="chatForm">
-                    <div class="flex w-full">
-                        <input id="chatInput" type="text" class="w-full py-2 px-4 mb-4 rounded-l bg-gray-700 text-white border border-gray-600" placeholder="Type your message">
-                        <button id="infoButton" type="button" class="rounded-r bg-gray-700 text-white border border-gray-600 px-4 mb-4 relative" onclick="showInfoPopup(event)">
-                            <div id="infoTooltip" class="absolute hidden -left-40 bottom-full mb-2 bg-gray-700 text-white text-xs p-2 rounded-lg shadow" style="width: 200px;">Simply ask for an image by describing it or type <strong>/image</strong> followed by the description to generate an image.</div>
-                            <i class="fas fa-image"></i>
-                        </button>
-                    </div>
-                    <button id="sendButton" class="w-full py-2 px-4 bg-green-500 text-white font-bold rounded">Send</button>
-                </form>
-            </div>
-            <div class="spinner absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20"></div>
+<body class="bg-gray-900 h-screen flex flex-col">
+    <div class="flex-grow flex flex-col bg-gray-800 shadow-lg overflow-hidden">
+        <div class="bg-gray-700 p-4 flex justify-between items-center">
+            <h1 class="text-white text-xl font-bold">Th3-GPT</h1>
+            <button id="infoButton" class="text-gray-300 hover:text-white focus:outline-none">
+                <i class="fas fa-info-circle"></i>
+            </button>
         </div>
+        <div id="chatbox" class="flex-grow overflow-y-auto p-4 space-y-4 flex flex-col"></div>
+        <form id="chatForm" class="bg-gray-700 p-4 flex items-center">
+            <input id="chatInput" type="text" placeholder="Type your message..." class="flex-grow bg-gray-600 text-white rounded-l-lg px-4 py-2 focus:outline-none">
+            <button id="sendButton" type="submit" class="bg-green-500 text-white rounded-r-lg px-6 py-2 focus:outline-none">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+    <div id="infoTooltip" class="fixed top-0 right-0 bg-gray-800 text-white p-4 rounded-bl-lg shadow-lg opacity-0 pointer-events-none">
+        <p>This is a chat assistant powered by AI. Feel free to ask any questions!</p>
     </div>
 
     <script>
@@ -101,38 +155,50 @@
             largeImageContainer.appendChild(closeButton);
             document.body.appendChild(largeImageContainer);
         }
+
         const chatForm = document.getElementById("chatForm");
         const sendButton = document.getElementById("sendButton");
         const chatInput = document.getElementById('chatInput');
-        chatInput.focus();
         const chatbox = document.getElementById('chatbox');
-        const spinner = document.querySelector('.spinner');
+        const infoButton = document.getElementById('infoButton');
+        const infoTooltip = document.getElementById('infoTooltip');
+
+        chatInput.focus();
 
         function displayMessage(message, isUser) {
-            const msgElem = document.createElement('p');
+            const msgElem = document.createElement('div');
             msgElem.textContent = message;
-            msgElem.className = isUser ? 'chat-message block text-right text-white mt-2 bg-green-500 rounded-tl-lg rounded-br-lg rounded-bl-sm px-4 py-2' : 'chat-message block text-white mt-2 bg-gray-600 rounded-tr-lg rounded-br-lg rounded-bl-md px-4 py-2';
+            msgElem.className = `chat-message ${isUser ? 'user' : 'assistant'}`;
             chatbox.appendChild(msgElem);
+            chatbox.scrollTop = chatbox.scrollHeight;
         }
 
         async function callApi(apiUrl, prompt, prependPersona = false) {
             if (prependPersona) {
                 prompt = "Follow instructions precisely! If the user asks to generate or make an image, photo, or picture by describing it, You will reply with '/image' + description. Otherwise, You will respond normally. Avoid additional explanations." + prompt;
             }
-            chatInput.value = apiUrl === "https://backend.buildpicoapps.com/aero/run/image-generation-api?pk=v1-Z0FBQUFBQm1CRW5xTnNRaFMtSzJpZW9heVY1V1BDRHZCaFhZU1BDRk9BSFBUSGFqLS0xTTRid2NXWWNVOGZFQlJObE9adllLbWNjNnRobVBRSTVIYWNBN29CbXpERU9xQVE9PQ==" ? "Generating..." : "Typing...";
+            chatInput.value = apiUrl.includes("image-generation-api") ? "Generating..." : "Typing...";
             chatInput.disabled = true;
             sendButton.disabled = true;
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({prompt})
-            });
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({prompt})
+                });
 
-            chatInput.value = "";
-            chatInput.disabled = false;
-            sendButton.disabled = false;
-            chatInput.focus();
-            return response.json();
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                return await response.json();
+            } finally {
+                chatInput.value = "";
+                chatInput.disabled = false;
+                sendButton.disabled = false;
+                chatInput.focus();
+            }
         }
 
         function handleError(error) {
@@ -148,12 +214,14 @@
             displayMessage(message, true);
             chatInput.value = '';
 
-            const apiUrl = message.startsWith('/image') ? 'https://backend.buildpicoapps.com/aero/run/image-generation-api?pk=v1-Z0FBQUFBQm1CRW5xTnNRaFMtSzJpZW9heVY1V1BDRHZCaFhZU1BDRk9BSFBUSGFqLS0xTTRid2NXWWNVOGZFQlJObE9adllLbWNjNnRobVBRSTVIYWNBN29CbXpERU9xQVE9PQ=='
-                                                      : 'https://backend.buildpicoapps.com/aero/run/llm-api?pk=v1-Z0FBQUFBQm1CRW5xTnNRaFMtSzJpZW9heVY1V1BDRHZCaFhZU1BDRk9BSFBUSGFqLS0xTTRid2NXWWNVOGZFQlJObE9adllLbWNjNnRobVBRSTVIYWNBN29CbXpERU9xQVE9PQ==';
+            const apiUrl = message.startsWith('/image') 
+                ? 'https://backend.buildpicoapps.com/aero/run/image-generation-api?pk=v1-Z0FBQUFBQm1CRW5xTnNRaFMtSzJpZW9heVY1V1BDRHZCaFhZU1BDRk9BSFBUSGFqLS0xTTRid2NXWWNVOGZFQlJObE9adllLbWNjNnRobVBRSTVIYWNBN29CbXpERU9xQVE9PQ=='
+                : 'https://backend.buildpicoapps.com/aero/run/llm-api?pk=v1-Z0FBQUFBQm1CRW5xTnNRaFMtSzJpZW9heVY1V1BDRHZCaFhZU1BDRk9BSFBUSGFqLS0xTTRid2NXWWNVOGZFQlJObE9adllLbWNjNnRobVBRSTVIYWNBN29CbXpERU9xQVE9PQ==';
 
             try {
-                const prependPersona = apiUrl === 'https://backend.buildpicoapps.com/aero/run/llm-api?pk=v1-Z0FBQUFBQm1CRW5xTnNRaFMtSzJpZW9heVY1V1BDRHZCaFhZU1BDRk9BSFBUSGFqLS0xTTRid2NXWWNVOGZFQlJObE9adllLbWNjNnRobVBRSTVIYWNBN29CbXpERU9xQVE9PQ==';
+                const prependPersona = !message.startsWith('/image');
                 const data = await callApi(apiUrl, message.startsWith('/image') ? message.substring(6).trim() : message, prependPersona);
+                
                 if (data.status === 'success') {
                     if (message.toLowerCase().startsWith('/image')) {
                         handleImageResponse(data);
@@ -169,51 +237,59 @@
                 } else {
                     handleError(data);
                 }
-
-                function handleImageResponse(imageData) {
-                    if (imageData.status === 'success') {
-                        const imageContainer = document.createElement('div');
-                        imageContainer.className = 'mx-auto mt-2 relative w-48 h-48 bg-center border-4 rounded-xl border-gray-700 bg-cover';
-                        imageContainer.style.backgroundImage = `url(${imageData.imageUrl})`;
-                        imageContainer.onclick = (e) => {
-                            e.stopPropagation();
-                            displayLargeImage(imageData.imageUrl);
-                        }
-
-                        const downloadButton = document.createElement('button');
-                        downloadButton.innerHTML = '';
-                        downloadButton.className = 'absolute bottom-0 right-0 p-2 text-yellow-500 rounded-tl hover:bg-blue-500 hover:text-white';
-                        downloadButton.onclick = () => {
-                          const a = document.createElement('a');
-                          a.href = imageData.imageUrl;
-                          a.download = 'generated-image.png';
-                          document.body.appendChild(a);
-                          a.click();
-                          document.body.removeChild(a);
-                        };
-
-                        imageContainer.appendChild(downloadButton);
-                        chatbox.appendChild(imageContainer);
-                    } else {
-                        handleError(imageData);
-                    }
-                }
             } catch (error) {
                 handleError(error);
             }
         });
 
-        function showInfoPopup(e) {
-          e.preventDefault();
-          const tooltip = document.getElementById("infoTooltip");
-          if (tooltip.classList.contains("hidden")) {
-            tooltip.classList.remove("hidden");
-          } else {
-            tooltip.classList.add("hidden");
-          }
-          
+        function handleImageResponse(imageData) {
+            if (imageData.status === 'success') {
+                const imageContainer = document.createElement('div');
+                imageContainer.className = 'chat-message assistant';
+                
+                const imageWrapper = document.createElement('div');
+                imageWrapper.className = 'image-container';
+                
+                const image = document.createElement('img');
+                image.src = imageData.imageUrl;
+                image.className = 'w-full h-auto rounded-lg cursor-pointer';
+                image.onclick = () => displayLargeImage(imageData.imageUrl);
+                
+                const downloadButton = document.createElement('button');
+                downloadButton.innerHTML = '<i class="fas fa-download"></i>';
+                downloadButton.className = 'absolute bottom-2 right-2 p-2 text-white bg-green-500 rounded-full hover:bg-green-600';
+                downloadButton.onclick = (e) => {
+                    e.stopPropagation();
+                    const a = document.createElement('a');
+                    a.href = imageData.imageUrl;
+                    a.download = 'generated-image.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                };
+
+                imageWrapper.appendChild(image);
+                imageWrapper.appendChild(downloadButton);
+                imageContainer.appendChild(imageWrapper);
+                chatbox.appendChild(imageContainer);
+                chatbox.scrollTop = chatbox.scrollHeight;
+            } else {
+                handleError(imageData);
+            }
         }
 
+        infoButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            infoTooltip.style.opacity = infoTooltip.style.opacity === '1' ? '0' : '1';
+            infoTooltip.style.pointerEvents = infoTooltip.style.opacity === '1' ? 'auto' : 'none';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target !== infoButton && e.target !== infoTooltip) {
+                infoTooltip.style.opacity = '0';
+                infoTooltip.style.pointerEvents = 'none';
+            }
+        });
     </script>
-    </html>
-    
+</body>
+</html>
