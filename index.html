@@ -62,6 +62,11 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        a {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+        }
+
         .iframe-container {
             flex-grow: 1;
             position: relative;
@@ -229,13 +234,17 @@
         }
 
         @media (max-width: 600px) {
-            .bottom-menu button span {
-                display: none;
-            }
-            .bottom-menu button i {
-                margin-bottom: 0;
-            }
-        }
+    .bottom-menu button span {
+        display: inline;
+    }
+    .bottom-menu button i {
+        margin-bottom: 2px;
+    }
+    .bottom-menu button {
+        font-size: 10px;
+        padding: 5px;
+    }
+}
     </style>
 </head>
 <body>
@@ -260,13 +269,14 @@
         </button>
         <button class="icon-button" onclick="openModal()" title="About">
             <i class="fas fa-info"></i>
+            <span>Info</span>
         </button>
     </nav>
 
     <div id="aboutModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Th3-AI Hub</h2>
+            <h2>Th3-AI Hub</h2><h2>Made by <a href="https://github.com/Th3-C0der" target="_blank">Th3-C0der</a></h2>
             <p>Welcome Th3-AI Hub, your gateway to multiple AI assistants:</p>
             <ul>
                 <li><strong>Th3-GPT:</strong> A versatile AI chatbot for general queries & image generation (Use /image to generate images).</li>
@@ -274,7 +284,7 @@
                 <li><strong>Jarvis AI:</strong> An AI voice assistant.</li>
             </ul>
             <p>Use the buttons at the bottom to switch between assistants, or use keyboard shortcuts (Alt + 1/2/3) for quick access.</p>
-            <p>Made by Th3-C0der</p><br>
+            
             <p>Find a hidden Easter Egg :)</p>
         </div>
     </div>
