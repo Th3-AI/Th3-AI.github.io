@@ -12,7 +12,7 @@ Th3-AI Hub provides access to three specialized AI assistants:
 
 ## 🚀 Quick Start
 
-Visit [https://th3-c0der.github.io/](https://th3-c0der.github.io/) to access Th3-AI Hub.
+Visit [https://th3-ai.github.io/](https://th3-ai.github.io/) to access Th3-AI Hub.
 
 ## 🛠️ Usage
 
