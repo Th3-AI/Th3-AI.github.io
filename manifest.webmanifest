@@ -10,13 +10,13 @@
   "background_color": "#000000",
   "icons": [
     {
-      "src": "https://th3-ai.github.io/assets/Th3-AI.png/:/rs=w:192,h:192,m",
+      "src": "//th3-ai.github.io/assets/Th3-AI.png/:/rs=w:192,h:192,m",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://th3-ai.github.io/assets/Th3-AI.png/:/rs=w:512,h:512,m",
+      "src": "//th3-ai.github.io/assets/Th3-AI.png/:/rs=w:512,h:512,m",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
