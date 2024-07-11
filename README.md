@@ -42,7 +42,7 @@ There's a hidden Easter egg in the application. Can you find it? 🥚
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/Th3-C0der/Th3-C0der.github.io/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/Th3-AI/Th3-AI.github.io/issues).
 
 ## 👨‍💻 Author
 
