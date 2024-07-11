@@ -1,7 +1,8 @@
 {
   "name": "Th3-C0der's AI Hub",
   "short_name": "Th3-AI",
-  "description": "An AI chat platform for intelligent conversations and assistance",
+  "description": "Your gateway to multiple AI assistants: DynaSpark, Th3-GPT, and Jarvis",
+  "version": "1.1.0",
   "scope": "/",
   "start_url": "/",
   "display": "standalone",
@@ -22,8 +23,9 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["productivity", "artificial intelligence", "chat"],
+  "categories": ["productivity", "artificial intelligence", "chat", "voice assistant"],
   "lang": "en-US",
   "dir": "ltr",
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "related_applications": []
 }
