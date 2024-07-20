@@ -1,6 +1,6 @@
-# Th3-AI Hub
+# Th3-AI
 
-Welcome to Th3-AI Hub, your gateway to multiple AI assistants created by [Th3-C0der](https://github.com/Th3-C0der).
+Welcome to Th3-AI, your gateway to multiple AI assistants created by [Th3-C0der](https://github.com/Th3-C0der).
 
 ## 🤖 Features
 
@@ -12,7 +12,7 @@ Th3-AI Hub provides access to three specialized AI assistants:
 
 ## 🚀 Quick Start
 
-Visit [https://th3-ai.github.io/](https://th3-ai.github.io/) to access Th3-AI Hub.
+Visit [https://th3-ai.github.io/](https://th3-ai.github.io/) to access Th3-AI.
 
 ## 🛠️ Usage
 
