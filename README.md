@@ -1,6 +1,6 @@
-# Th3-AI
+# Th3-AI Hub
 
-Welcome to Th3-AI, your gateway to multiple AI assistants created by [Th3-C0der](https://github.com/Th3-C0der).
+Welcome to Th3-AI Hub, your gateway to multiple AI assistants created by [Th3-C0der](https://github.com/Th3-C0der).
 
 ## 🤖 Features
 
@@ -32,9 +32,9 @@ Visit [https://th3-ai.github.io/](https://th3-ai.github.io/) to access Th3-AI.
 - HTML5
 - CSS3
 - JavaScript
-- Github Pages(For Hosting Th3-AI Hub)
-- Python(For DynaSpark AI Backend)
-- Render(For DynaSpark AI Hosting)
+- Github Pages
+- Python
+- Render
 
 ## 🔍 Easter Egg
 
@@ -49,12 +49,5 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 **Th3-C0der**
 
 - GitHub: [@Th3-C0der](https://github.com/Th3-C0der)
-
-## 🙏 Acknowledgments
-
-- Font Awesome for the icons
-- Google Fonts for the Poppins font
-- Google Gemini API
-- ChatGPT API
 
 Enjoy using Th3-AI Hub! If you have any questions or feedback, please don't hesitate to reach out.
