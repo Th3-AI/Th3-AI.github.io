@@ -6,9 +6,9 @@ Welcome to Th3-AI Hub, your gateway to multiple AI assistants created by [Th3-C0
 
 Th3-AI Hub provides access to three specialized AI assistants:
 
-1. **DynaSpark AI**: Specialized in dynamic problem-solving.
-2. **Th3-GPT**: A versatile AI chatbot for general queries & image generation.
-3. **Jarvis AI**: An AI voice assistant.
+1. **DynaSpark AI**: A versatile and dynamic AI assistant, specializing in creative problem-solving and advanced image generation.
+2. **Th3-GPT**: An AI chatbot.
+3. **Jarvis AI**: A AI voice assistant.
 
 ## 🚀 Quick Start
 
@@ -18,7 +18,6 @@ Visit [https://th3-ai.github.io/](https://th3-ai.github.io/) to access Th3-AI.
 
 - Use the buttons at the bottom of the interface to switch between AI assistants.
 - Keyboard shortcuts (Alt + 1/2/3) are available for quick access to each assistant.
-- For Th3-GPT, use `/image` to generate images.
 
 ## 🎨 Features
 
